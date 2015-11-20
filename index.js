@@ -4,11 +4,11 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 let Random = require('./random');
-const config = require('./config')
 
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.post('/group', (req,res) => {
+  const config = require('./config')
   let text = req.body.text;
   let random = new Random(config.members);
   let groupCount = text.match(/\d+/g)[0];
