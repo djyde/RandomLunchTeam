@@ -3,14 +3,15 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const config = require('./config')
 let Random = require('./random');
 
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.post('/group', (req,res) => {
-  const config = require('./config')
+  let members = [].concat(config.members)
   let text = req.body.text;
-  let random = new Random(config.members);
+  let random = new Random(members);
   let groupCount = text.match(/\d+/g)[0];
   if (text.match(/\([^)]*\)/)) {
     let except = text.match(/\([^)]*\)/)[0].replace('(','').replace(')','').split(',');
